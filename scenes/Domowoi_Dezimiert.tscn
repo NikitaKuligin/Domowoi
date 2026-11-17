@@ -46,7 +46,7 @@ shader = ExtResource("3_lurc1")
 shader_parameter/textur_basis = ExtResource("4_7d24f")
 shader_parameter/textur_rot = ExtResource("6_vnro2")
 shader_parameter/textur_gruen = ExtResource("5_h4ekb")
-shader_parameter/kachelung = 10.0
+shader_parameter/kachelung = 20.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s5x2h"]
 resource_name = "material_0"
@@ -93,7 +93,7 @@ albedo_texture = ExtResource("19_1tl6y")
 albedo_texture = ExtResource("20_vcqbh")
 
 [node name="Node3D" type="Node3D" unique_id=1607956155]
-transform = Transform3D(2.3611515, 0, 0, 0, 1, 0, 0, 0, 2.3640597, 0, 0, 0)
+transform = Transform3D(4.722303, 0, 0, 0, 2, 0, 0, 0, 4.7281194, 0, 0, 0)
 
 [node name="Map_Dezimiert" parent="." unique_id=908144549 instance=ExtResource("1_ahwk3")]
 transform = Transform3D(1.0018533, 0, 0, 0, 0.9999998, 0, 0, 0, 0.98472327, -0.001118234, 0, 0.009706286)

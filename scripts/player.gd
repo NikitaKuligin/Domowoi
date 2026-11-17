@@ -3,7 +3,7 @@ extends Node3D
 # Die Höhe bleibt konstant (die Karte ist fast flach); für Hügel braucht man eine Kollision der Karte + RayCast3D nach unten.
 
 @export var speed := 1.0
-@export var map_half_size := 5.8 # Karte ist ca. 12x12, weiter geht es nicht
+@export var map_half_size := 11.6 # Karte ist ca. 24x24, weiter geht es nicht
 
 @onready var model: Node3D = $Model
 
