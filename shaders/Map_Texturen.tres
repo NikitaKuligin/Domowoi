@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bjgjjsd7epuer"]
+
+[ext_resource type="Shader" uid="uid://d3nsal5fv6dai" path="res://shaders/Map_Texturen.gdshader" id="1_kl6vl"]
+[ext_resource type="Texture2D" uid="uid://cralvc4v0oaac" path="res://textures/terrain/Wasser_Textur.png" id="2_v01j8"]
+[ext_resource type="Texture2D" uid="uid://c0y051aaygpwe" path="res://textures/terrain/Schlamm_Textur.png" id="2_y1qse"]
+[ext_resource type="Texture2D" uid="uid://cylsstld1hmw7" path="res://textures/terrain/Wiese_Textur.png" id="3_v01j8"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_kl6vl")
+shader_parameter/textur_basis = ExtResource("2_v01j8")
+shader_parameter/textur_rot = ExtResource("2_y1qse")
+shader_parameter/textur_gruen = ExtResource("3_v01j8")
+shader_parameter/kachelung = 10.0

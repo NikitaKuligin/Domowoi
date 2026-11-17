@@ -1,0 +1,40 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/Domowoi_Dezimiert.tscn" id="1_map"]
+[ext_resource type="PackedScene" path="res://models/characters/Domowoi.glb" id="2_domowoi"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="3_player"]
+[ext_resource type="PackedScene" path="res://scenes/main_menu.tscn" id="4_menu"]
+
+[sub_resource type="ProceduralSkyMaterial" id="SkyMat"]
+
+[sub_resource type="Sky" id="Sky"]
+sky_material = SubResource("SkyMat")
+
+[sub_resource type="Environment" id="Env"]
+background_mode = 2
+sky = SubResource("Sky")
+tonemap_mode = 2
+
+[node name="Game" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Env")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation = Vector3(-0.9, 0.5, 0)
+shadow_enabled = true
+
+[node name="Map" parent="." instance=ExtResource("1_map")]
+
+[node name="Player" type="Node3D" parent="."]
+script = ExtResource("3_player")
+
+[node name="Model" parent="Player" instance=ExtResource("2_domowoi")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.09, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 0.857, 0.515, 0, -0.515, 0.857, 0, 0.8, 1.2)
+current = true
+
+[node name="Menu" parent="." instance=ExtResource("4_menu")]
+in_game = true
