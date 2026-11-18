@@ -5,15 +5,16 @@
 [ext_resource type="Script" uid="uid://563mlya64olg" path="res://scripts/player.gd" id="3_player"]
 [ext_resource type="PackedScene" path="res://scenes/main_menu.tscn" id="4_menu"]
 [ext_resource type="PackedScene" uid="uid://b2xuyke4i6glb" path="res://models/characters/Kolobok.glb" id="5_kolobok"]
+[ext_resource type="PackedScene" uid="uid://84rl8umhj5y6" path="res://models/environment/Wunderblume.glb" id="5_p57ef"]
 [ext_resource type="Script" uid="uid://ct130yo8pagxm" path="res://scripts/npc.gd" id="6_npc"]
+[ext_resource type="Texture2D" uid="uid://q4cvih6wqhix" path="res://textures/Wunderblume_Textur.png" id="6_u5sy4"]
 [ext_resource type="Script" uid="uid://bpt00qyg7qy35" path="res://scripts/dialog.gd" id="7_dialog"]
 [ext_resource type="Texture2D" uid="uid://c64n14ixd63gc" path="res://textures/ui/Sprechblase.png" id="8_bubble"]
 [ext_resource type="PackedScene" uid="uid://ccmaqyr8d3uj1" path="res://models/characters/Frog Pet.glb" id="9_frog"]
 [ext_resource type="Script" uid="uid://baufqaii8yd08" path="res://scripts/frog_npc.gd" id="10_frog"]
 [ext_resource type="PackedScene" path="res://scenes/erdbeerbusch.tscn" id="11_erdbeeren"]
-[ext_resource type="Script" path="res://scripts/inventar.gd" id="12_inventar"]
-[ext_resource type="PackedScene" uid="uid://84rl8umhj5y6" path="res://models/environment/Wunderblume.glb" id="5_p57ef"]
-[ext_resource type="Texture2D" uid="uid://q4cvih6wqhix" path="res://textures/Wunderblume_Textur.png" id="6_u5sy4"]
+[ext_resource type="Script" uid="uid://n2r0j1o682ec" path="res://scripts/inventar.gd" id="12_inventar"]
+[ext_resource type="PackedScene" uid="uid://di84mhhjs6e4s" path="res://models/characters/Froschprinzessin.glb" id="13_froschprinzessin"]
 
 [sub_resource type="ProceduralSkyMaterial" id="SkyMat"]
 
@@ -166,14 +167,20 @@ script = ExtResource("10_frog")
 [node name="Model" parent="Frog" unique_id=1380538014 instance=ExtResource("9_frog")]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
 
-[node name="Wunderblume" parent="." unique_id=1818172349 instance=ExtResource("5_p57ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14802659, 0.5644817, -0.53622216)
+[node name="Froschprinzessin" type="Node3D" parent="." unique_id=1801753007]
+transform = Transform3D(-0.8792689, 0, -0.47632608, 0, 1, 0, 0.47632608, 0, -0.8792689, -7.75, -0.006, 5.66)
 
-[node name="UV-Kugel" parent="Wunderblume" index="1" unique_id=760380250]
+[node name="Model" parent="Froschprinzessin" unique_id=1976399152 instance=ExtResource("13_froschprinzessin")]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0.138, 0)
+
+[node name="Wunderblume" parent="." unique_id=1818172349 instance=ExtResource("5_p57ef")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6741357, 0.495, -5.212665)
+
+[node name="UV-Kugel" parent="Wunderblume" index="1" unique_id=1196431931]
 material_override = SubResource("ShaderMaterial_vtaks")
 surface_material_override/0 = SubResource("ShaderMaterial_vtaks")
 
-[node name="Inventar" type="Control" parent="."]
+[node name="Inventar" type="Control" parent="." unique_id=2067693690]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -217,7 +224,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 22
 text = "Kolobok"
 
-[node name="Text" type="Label" parent="Dialog/Panel/VBox"]
+[node name="Text" type="Label" parent="Dialog/Panel/VBox" unique_id=51629436]
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
 autowrap_mode = 3
