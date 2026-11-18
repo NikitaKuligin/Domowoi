@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cn40us8vo7wqj"
-path.s3tc="res://.godot/imported/WegMitWiese_Textur.png-bf3a1f4f81f957da988e26cb50071b8b.s3tc.ctex"
+uid="uid://cdttloxsvg0bi"
+path.s3tc="res://.godot/imported/Frog Pet_0.png-17d94d38efcb5a086ca471b9067fc8a9.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "b6230e523b9f94a69995eefb6f35e71d"
+}
 
 [deps]
 
-source_file="res://textures/terrain/WegMitWiese_Textur.png"
-dest_files=["res://.godot/imported/WegMitWiese_Textur.png-bf3a1f4f81f957da988e26cb50071b8b.s3tc.ctex"]
+source_file="res://models/characters/Frog Pet_0.png"
+dest_files=["res://.godot/imported/Frog Pet_0.png-17d94d38efcb5a086ca471b9067fc8a9.s3tc.ctex"]
 
 [params]
 

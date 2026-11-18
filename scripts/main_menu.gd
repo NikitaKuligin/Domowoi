@@ -6,6 +6,8 @@ extends Control
 
 func _ready() -> void:
 	visible = not in_game
+	if not in_game:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE # z. B. nach dem Tod im Sumpf
 	$Center/VBox/Start.grab_focus()
 
 
@@ -13,6 +15,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if in_game and event.is_action_pressed("ui_cancel"): # ui_cancel = Esc
 		visible = not visible
 		get_tree().paused = visible
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if visible else Input.MOUSE_MODE_CAPTURED
 		if visible:
 			$Center/VBox/Start.grab_focus()
 

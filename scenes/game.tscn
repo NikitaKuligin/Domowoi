@@ -1,9 +1,17 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cem45jao28jh8"]
 
-[ext_resource type="PackedScene" path="res://scenes/Domowoi_Dezimiert.tscn" id="1_map"]
-[ext_resource type="PackedScene" path="res://models/characters/Domowoi.glb" id="2_domowoi"]
-[ext_resource type="Script" path="res://scripts/player.gd" id="3_player"]
+[ext_resource type="PackedScene" uid="uid://bfhkfkadrsd7a" path="res://scenes/Domowoi_Dezimiert.tscn" id="1_map"]
+[ext_resource type="PackedScene" uid="uid://bwaj0seudomqu" path="res://models/characters/Domowoi.glb" id="2_domowoi"]
+[ext_resource type="Script" uid="uid://563mlya64olg" path="res://scripts/player.gd" id="3_player"]
 [ext_resource type="PackedScene" path="res://scenes/main_menu.tscn" id="4_menu"]
+[ext_resource type="PackedScene" uid="uid://b2xuyke4i6glb" path="res://models/characters/Kolobok.glb" id="5_kolobok"]
+[ext_resource type="Script" uid="uid://ct130yo8pagxm" path="res://scripts/npc.gd" id="6_npc"]
+[ext_resource type="Script" uid="uid://bpt00qyg7qy35" path="res://scripts/dialog.gd" id="7_dialog"]
+[ext_resource type="Texture2D" uid="uid://c64n14ixd63gc" path="res://textures/ui/Sprechblase.png" id="8_bubble"]
+[ext_resource type="PackedScene" uid="uid://ccmaqyr8d3uj1" path="res://models/characters/Frog Pet.glb" id="9_frog"]
+[ext_resource type="Script" uid="uid://baufqaii8yd08" path="res://scripts/frog_npc.gd" id="10_frog"]
+[ext_resource type="PackedScene" path="res://scenes/erdbeerbusch.tscn" id="11_erdbeeren"]
+[ext_resource type="Script" path="res://scripts/inventar.gd" id="12_inventar"]
 
 [sub_resource type="ProceduralSkyMaterial" id="SkyMat"]
 
@@ -15,26 +23,158 @@ background_mode = 2
 sky = SubResource("Sky")
 tonemap_mode = 2
 
-[node name="Game" type="Node3D"]
+[node name="Game" type="Node3D" unique_id=737060687]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=903419220]
 environment = SubResource("Env")
 
-[node name="Sun" type="DirectionalLight3D" parent="."]
-rotation = Vector3(-0.9, 0.5, 0)
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=670117994]
+transform = Transform3D(0.87758255, -0.37554693, 0.2980157, 0, 0.62161, 0.7833269, -0.47942555, -0.687434, 0.54551405, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Map" parent="." instance=ExtResource("1_map")]
+[node name="Map" parent="." unique_id=1973408425 instance=ExtResource("1_map")]
 
-[node name="Player" type="Node3D" parent="."]
+[node name="Player" type="Node3D" parent="." unique_id=55407631]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.292089, 0, 5.695336)
 script = ExtResource("3_player")
 
-[node name="Model" parent="Player" instance=ExtResource("2_domowoi")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.09, 0)
+[node name="Model" parent="Player" unique_id=1635573057 instance=ExtResource("2_domowoi")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 0.857, 0.515, 0, -0.515, 0.857, 0, 0.8, 1.2)
+[node name="CameraPivot" type="Node3D" parent="Player" unique_id=2001315982]
+transform = Transform3D(1, 0, 0, 0, 0.877583, 0.479426, 0, -0.479426, 0.877583, 0, 0.2, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="Player/CameraPivot" unique_id=274441361]
+spring_length = 1.4
+
+[node name="Camera3D" type="Camera3D" parent="Player/CameraPivot/SpringArm3D" unique_id=1523210954]
 current = true
 
-[node name="Menu" parent="." instance=ExtResource("4_menu")]
+[node name="Bubble" type="Sprite3D" parent="Player" unique_id=1602621722]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+pixel_size = 0.0012
+billboard = 1
+texture = ExtResource("8_bubble")
+
+[node name="Label" type="Label3D" parent="Player/Bubble" unique_id=323005611]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+pixel_size = 0.0012
+billboard = 1
+render_priority = 1
+modulate = Color(0.1, 0.1, 0.1, 1)
+text = "Ich bin so hungrig!"
+font_size = 22
+outline_size = 0
+
+[node name="Kolobok" type="Node3D" parent="." unique_id=2067744056]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.62, -0.011, 1.34)
+script = ExtResource("6_npc")
+
+[node name="Model" parent="Kolobok" unique_id=697163922 instance=ExtResource("5_kolobok")]
+transform = Transform3D(0.12, 0, 0, 0, 0.12, 0, 0, 0, 0.12, 0, 0.15, 0)
+
+[node name="Bubble" type="Sprite3D" parent="Kolobok" unique_id=1468183172]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44, 0)
+visible = false
+pixel_size = 0.0012
+billboard = 1
+texture = ExtResource("8_bubble")
+
+[node name="Label" type="Label3D" parent="Kolobok/Bubble" unique_id=757693208]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+pixel_size = 0.0012
+billboard = 1
+render_priority = 1
+modulate = Color(0.1, 0.1, 0.1, 1)
+text = "He, Domowoi!"
+outline_size = 0
+
+[node name="Erdbeeren" type="Node3D" parent="." unique_id=344576414]
+
+[node name="Erdbeerbusch1" parent="Erdbeeren" unique_id=623087566 instance=ExtResource("11_erdbeeren")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.970515, -0.004, 3.122399)
+
+[node name="Erdbeerbusch2" parent="Erdbeeren" unique_id=552431584 instance=ExtResource("11_erdbeeren")]
+transform = Transform3D(0.8, 0, 0.6, 0, 1, 0, -0.6, 0, 0.8, -3.358097, -0.012, 4.670068)
+
+[node name="Frog" type="Node3D" parent="." unique_id=896002106]
+script = ExtResource("10_frog")
+
+[node name="Model" parent="Frog" unique_id=1380538014 instance=ExtResource("9_frog")]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
+
+[node name="Inventar" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("12_inventar")
+
+[node name="Dialog" type="Control" parent="." unique_id=264860327]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("7_dialog")
+
+[node name="Panel" type="PanelContainer" parent="Dialog" unique_id=2128618001]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 200.0
+offset_top = -100.0
+offset_right = -200.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="VBox" type="VBoxContainer" parent="Dialog/Panel" unique_id=823371419]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Name" type="Label" parent="Dialog/Panel/VBox" unique_id=1573769202]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Kolobok"
+
+[node name="Text" type="Label" parent="Dialog/Panel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+autowrap_mode = 3
+
+[node name="Option1" type="PanelContainer" parent="Dialog/Panel/VBox" unique_id=463325021]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Dialog/Panel/VBox/Option1" unique_id=429182317]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "XXXXXX"
+
+[node name="Option2" type="PanelContainer" parent="Dialog/Panel/VBox" unique_id=101452875]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Dialog/Panel/VBox/Option2" unique_id=65019442]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "YYYYYY"
+
+[node name="Option3" type="PanelContainer" parent="Dialog/Panel/VBox" unique_id=50208787]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Dialog/Panel/VBox/Option3" unique_id=662021960]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "ZZZZZZ"
+
+[node name="Menu" parent="." unique_id=689235549 instance=ExtResource("4_menu")]
 in_game = true
