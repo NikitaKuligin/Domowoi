@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://baufqaii8yd08" path="res://scripts/frog_npc.gd" id="10_frog"]
 [ext_resource type="PackedScene" path="res://scenes/erdbeerbusch.tscn" id="11_erdbeeren"]
 [ext_resource type="Script" uid="uid://n2r0j1o682ec" path="res://scripts/inventar.gd" id="12_inventar"]
+[ext_resource type="Script" path="res://scripts/wetter.gd" id="13_wetter"]
 [ext_resource type="PackedScene" uid="uid://di84mhhjs6e4s" path="res://models/characters/Froschprinzessin.glb" id="13_froschprinzessin"]
 
 [sub_resource type="ProceduralSkyMaterial" id="SkyMat"]
@@ -91,6 +92,7 @@ shader_parameter/uv2_offset = Vector3(0, 0, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=903419220]
 environment = SubResource("Env")
+script = ExtResource("13_wetter")
 
 [node name="Sun" type="DirectionalLight3D" parent="." unique_id=670117994]
 transform = Transform3D(0.87758255, -0.37554693, 0.2980157, 0, 0.62161, 0.7833269, -0.47942555, -0.687434, 0.54551405, 0, 0, 0)
