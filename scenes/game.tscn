@@ -14,8 +14,13 @@
 [ext_resource type="Script" uid="uid://baufqaii8yd08" path="res://scripts/frog_npc.gd" id="10_frog"]
 [ext_resource type="PackedScene" path="res://scenes/erdbeerbusch.tscn" id="11_erdbeeren"]
 [ext_resource type="Script" uid="uid://n2r0j1o682ec" path="res://scripts/inventar.gd" id="12_inventar"]
-[ext_resource type="Script" path="res://scripts/wetter.gd" id="13_wetter"]
 [ext_resource type="PackedScene" uid="uid://di84mhhjs6e4s" path="res://models/characters/Froschprinzessin.glb" id="13_froschprinzessin"]
+[ext_resource type="Script" uid="uid://3fxgatufwt5d" path="res://scripts/wetter.gd" id="13_wetter"]
+[ext_resource type="PackedScene" uid="uid://tmdy1gfnr5kr" path="res://models/environment/Stumpf.glb" id="17_rysoc"]
+[ext_resource type="PackedScene" uid="uid://c7hum8mm5ovao" path="res://models/environment/Wegweiser.glb" id="18_ssvqc"]
+[ext_resource type="PackedScene" uid="uid://opgq5eqdppvu" path="res://models/environment/Baum gefallen.glb" id="19_264po"]
+[ext_resource type="PackedScene" uid="uid://ndf7b1yrfcyv" path="res://models/environment/Pilz klein weiss.glb" id="20_5newe"]
+[ext_resource type="PackedScene" uid="uid://cgm51mdwscn1q" path="res://models/environment/Baumstumpf.glb" id="21_37s47"]
 
 [sub_resource type="ProceduralSkyMaterial" id="SkyMat"]
 
@@ -257,5 +262,38 @@ text = "ZZZZZZ"
 
 [node name="Menu" parent="." unique_id=689235549 instance=ExtResource("4_menu")]
 in_game = true
+
+[node name="Stumpf" parent="." unique_id=130853663 instance=ExtResource("17_rysoc")]
+transform = Transform3D(0.6891797, 0, 0, 0, 0.6891797, 0, 0, 0, 0.6891797, -6.123487, 0.6556984, -4.60113)
+
+[node name="Stumpf2" parent="." unique_id=1378677126 instance=ExtResource("17_rysoc")]
+transform = Transform3D(-0.062485248, 0, -0.6863412, 0, 0.6891797, 0, 0.6863412, 0, -0.062485248, 0.34218574, 0.67677426, -1.9601462)
+
+[node name="Wegweiser" parent="." unique_id=1760552339 instance=ExtResource("18_ssvqc")]
+transform = Transform3D(0.31559932, 0, 0.046658315, 0, 0.31902966, 0, -0.046658315, 0, 0.31559932, -0.95566124, 0.40841508, 3.8696942)
+
+[node name="Baum gefallen" parent="." unique_id=1064851762 instance=ExtResource("19_264po")]
+transform = Transform3D(-0.09395747, -0.014323436, 0.06574917, -0.021035505, 0.11351298, -0.0053315563, -0.06391886, -0.01630205, -0.094893314, -1.5841584, 0.17281747, -3.3111715)
+
+[node name="Pilz klein weiss" parent="." unique_id=1552593782 instance=ExtResource("20_5newe")]
+transform = Transform3D(0.23323719, 0, 0, 0, 0.23323719, 0, 0, 0, 0.23323719, -4.7652817, 0.115293026, -3.2007926)
+
+[node name="Pilz klein weiss2" parent="." unique_id=760631666 instance=ExtResource("20_5newe")]
+transform = Transform3D(0.23323719, 0, 0, 0, 0.23323719, 0, 0, 0, 0.23323719, -1.9953563, 0.08949733, -3.2007926)
+
+[node name="Pilz klein weiss5" parent="." unique_id=1203498368 instance=ExtResource("20_5newe")]
+transform = Transform3D(-0.16024606, -0.040198505, -0.16463551, -0.0468484, 0.22825886, -0.01013385, 0.16286804, 0.026106482, -0.16490002, -0.33135146, 0.09855029, -3.0360363)
+
+[node name="Pilz klein weiss3" parent="." unique_id=369010543 instance=ExtResource("20_5newe")]
+transform = Transform3D(0.04748352, 0, -0.22835259, 0, 0.23323719, 0, 0.22835259, 0, 0.04748352, -2.167121, 0.15656447, -6.003482)
+
+[node name="Pilz klein weiss4" parent="." unique_id=747685540 instance=ExtResource("20_5newe")]
+transform = Transform3D(0.22261064, -0.02172864, -0.0661207, 0.009197252, 0.22882013, -0.044230424, 0.06898907, 0.039607897, 0.21925168, -2.3073301, 0.07550132, -7.731901)
+
+[node name="Baumstumpf" parent="." unique_id=1799528970 instance=ExtResource("21_37s47")]
+transform = Transform3D(0.3466546, -0.003615306, 0.0023297127, 0.0036169947, 0.34666234, -0.0002391314, -0.0023270906, 0.00026342797, 0.34667337, -0.6330848, 0.2133084, -2.014392)
+
+[node name="Baumstumpf2" parent="." unique_id=662666729 instance=ExtResource("21_37s47")]
+transform = Transform3D(0.59829867, -0.0063435603, -0.14648472, 0.006426879, 0.61596906, -0.00042490195, 0.14648111, -0.0011155998, 0.59833217, -1.4934387, 0.37613332, -6.039398)
 
 [editable path="Wunderblume"]
