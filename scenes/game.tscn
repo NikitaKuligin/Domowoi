@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://opgq5eqdppvu" path="res://models/environment/Baum gefallen.glb" id="19_264po"]
 [ext_resource type="PackedScene" uid="uid://ndf7b1yrfcyv" path="res://models/environment/Pilz klein weiss.glb" id="20_5newe"]
 [ext_resource type="PackedScene" uid="uid://cgm51mdwscn1q" path="res://models/environment/Baumstumpf.glb" id="21_37s47"]
+[ext_resource type="PackedScene" uid="uid://6ellx6qujqkg" path="res://models/characters/Kikimora.glb" id="22_kikimora"]
 
 [sub_resource type="ProceduralSkyMaterial" id="SkyMat"]
 
@@ -186,6 +187,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6741357, 0.495, -5.212665)
 [node name="UV-Kugel" parent="Wunderblume" index="1" unique_id=760380250]
 material_override = SubResource("ShaderMaterial_vtaks")
 surface_material_override/0 = SubResource("ShaderMaterial_vtaks")
+
+[node name="Kikimora" type="Node3D" parent="." unique_id=1458207733]
+transform = Transform3D(0.7071068, 0, 0.7071068, 0, 1, 0, -0.7071068, 0, 0.7071068, -3.15, 0.0412, -5.25)
+
+[node name="Model" parent="Kikimora" unique_id=1458207734 instance=ExtResource("22_kikimora")]
+transform = Transform3D(0.0731, 0, 0, 0, 0.0731, 0, 0, 0, 0.0731, 0, 0.367, 0)
 
 [node name="Inventar" type="Control" parent="." unique_id=2067693690]
 layout_mode = 3
