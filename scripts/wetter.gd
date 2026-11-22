@@ -1,8 +1,9 @@
 extends WorldEnvironment
-# Wetter je nach Ort: Ist Sumpfwasser in der Nähe des Spielers, wird der Himmel trüb grünlich-grau
-# und es zieht leichter Nebel auf. Weg vom Sumpf ist es sonnig. Der Übergang ist weich.
+# Wetter je nach Ort: Am Sumpf wird der Himmel trüb grünlich-grau und es zieht leichter Nebel auf,
+# schon am Ufer. Am Fluss (beim Frosch) und sonst überall bleibt es sonnig. Der Übergang ist weich.
 
-@export var swamp_radius := 1.5 # so weit um den Spieler wird nach Sumpfwasser gesucht
+@export var fog_start := 0.02 # ab diesem Wasseranteil ringsum (Karte.swamp_density) beginnt das Sumpfwetter
+@export var fog_full := 0.25 # ab hier ist es ganz trüb
 @export var blend_speed := 0.7 # wie schnell das Wetter wechselt (pro Sekunde)
 
 # Sonnig / trüb
@@ -33,14 +34,9 @@ func _process(delta: float) -> void:
 	_apply()
 
 
-# Anteil Wasser in einem 5x5-Raster um den Spieler; schon ein Viertel Wasser zählt als voller Sumpf.
+# 0 = sonnig, 1 = Sumpfwetter, je nachdem wie viel Sumpfwasser rings um den Spieler ist.
 func _swamp_amount() -> float:
-	var hits := 0
-	for i in range(-2, 3):
-		for j in range(-2, 3):
-			if Karte.is_water(player.global_position + Vector3(i, 0, j) * swamp_radius / 2.0):
-				hits += 1
-	return clampf(hits / 25.0 * 4.0, 0.0, 1.0)
+	return smoothstep(fog_start, fog_full, Karte.swamp_density(player.global_position))
 
 
 func _apply() -> void:

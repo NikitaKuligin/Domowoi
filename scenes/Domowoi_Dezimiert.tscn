@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://cylsstld1hmw7" path="res://textures/terrain/Wiese_Textur.png" id="5_h4ekb"]
 [ext_resource type="Texture2D" uid="uid://dql8xtu8cn1uo" path="res://textures/terrain/Moos_Textur.png" id="6_vnro2"]
 [ext_resource type="PackedScene" uid="uid://cj3fqx8nbqjgo" path="res://models/environment/Gewässer_Ebene.glb" id="7_1filk"]
-[ext_resource type="Texture2D" uid="uid://cso6ouf02pgrk" path="res://textures/reference/Referenzbild_Map.png" id="8_grk6f"]
 [ext_resource type="Texture2D" uid="uid://b508f3oek07u3" path="res://textures/swamp/Seerosen Blatt Gro.png" id="10_7y70l"]
 [ext_resource type="Texture2D" uid="uid://bo0eh1vqjgusd" path="res://textures/swamp/Schilf_Textur.png" id="11_65f4w"]
 [ext_resource type="PackedScene" uid="uid://c3txeua6yt12h" path="res://models/environment/Sumpf Stegi.glb" id="13_bg8ag"]
@@ -89,12 +88,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0147948265, 0, 0.022192275
 transform = Transform3D(4.953918, 0, 0, 0, 4.9539175, 0, 0, 0, 4.953918, -0.05970505, -0.011526119, -0.06088829)
 material_override = ExtResource("2_267cf")
 mesh = SubResource("ArrayMesh_tfq55")
-
-[node name="Sprite3D_ReferenzBild" type="Sprite3D" parent="." unique_id=385499241]
-transform = Transform3D(0.1676854, 0, 0, 0, 2.1913052e-05, 1.0001094, 0, -0.16685313, 0.00013134576, -0.0057811737, 0.0031738281, 0)
-visible = false
-modulate = Color(1, 1, 1, 0.5372549)
-texture = ExtResource("8_grk6f")
 
 [node name="Seerosenblatt_01" type="Sprite3D" parent="." unique_id=1712100001]
 transform = Transform3D(0.0010460595, -0.00016469139, -0.0003141833, 0, 1.9053275e-06, -1.0582054, 0.00016976919, 0.0010147719, 0.0019358892, -0.36599752, -0.010449, -0.4295318)

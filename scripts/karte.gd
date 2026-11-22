@@ -4,7 +4,8 @@ extends RefCounted
 # Wassermaske: weiß = Sumpfwasser, schwarz = Land oder Steg.
 # Höhenkarte: Boden bzw. Oberkante der Stegbretter; schwarz = HEIGHT_MIN, weiß = HEIGHT_MAX.
 # Sumpfgebiet (256 x 256): Wasser plus Inseln und Ufer bis ca. 1 m daneben, hier darf Kikimora laufen.
-# Ändert sich das Gelände, müssen beide Bilder neu erzeugt werden.
+# Sumpfnebel (256 x 256): Anteil Sumpfwasser im Umkreis von 1,5 m (ohne den Fluss), steuert das Wetter.
+# Ändert sich das Gelände, müssen die Bilder neu erzeugt werden.
 
 const EXTENT := 12.0
 const HEIGHT_MIN := -0.3
@@ -14,6 +15,7 @@ const WATER_Y := -0.0229 # Höhe der Wasseroberfläche im Sumpf
 static var water_mask: Image = preload("res://textures/swamp/Wassermaske.png").get_image()
 static var height_map: Image = preload("res://textures/terrain/Hoehenkarte.png").get_image()
 static var swamp_area: Image = preload("res://textures/swamp/Sumpfgebiet.png").get_image()
+static var swamp_fog: Image = preload("res://textures/swamp/Sumpfnebel.png").get_image()
 
 
 static func is_water(p: Vector3) -> bool:
@@ -22,6 +24,11 @@ static func is_water(p: Vector3) -> bool:
 
 static func in_swamp(p: Vector3) -> bool:
 	return _sample(swamp_area, p) > 0.5
+
+
+# 0 = kein Sumpfwasser in der Nähe, 1 = nur Wasser ringsum.
+static func swamp_density(p: Vector3) -> float:
+	return _sample(swamp_fog, p)
 
 
 static func height(p: Vector3) -> float:

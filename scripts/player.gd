@@ -12,8 +12,6 @@ extends Node3D
 @export var mouse_sensitivity := 0.003 # Drehung pro Pixel Mausbewegung (Radiant)
 @export var pitch_min := -1.2 # Kamera höchstens so steil von oben (Radiant)
 @export var pitch_max := -0.05 # und höchstens so flach, sonst rutscht die Kamera unter den Boden
-@export var zoom_min := 0.6
-@export var zoom_max := 3.0
 @export var map_half_size := 11.6 # Karte ist ca. 24x24, weiter geht es nicht
 @export var sink_time := 3.0 # Sekunden bis Domowoi ganz im Sumpf verschwunden ist
 @export var sink_depth := 0.35 # so tief sinkt das Modell ein
@@ -23,14 +21,14 @@ var form := "domowoi"
 var dying := false
 var anim: AnimationPlayer # nur beim Frosch, Domowoi hat keine Animationen
 
-const DOMOWOI_SCENE := preload("res://models/characters/Domowoi.glb")
-const DOMOWOI_SCALE := 0.1
+const DOMOWOI_SCENE := preload("res://models/characters/Domowoi 3.glb")
+const DOMOWOI_SCALE := 0.128
+const DOMOWOI_LIFT := 0.18 # Ursprung des Modells liegt in der Körpermitte, so stehen die Füße auf dem Boden
 const FROG_SCENE := preload("res://models/characters/Frog Pet.glb")
 const FROG_SCALE := 0.15
 
 @onready var model: Node3D = $Model
 @onready var pivot: Node3D = $CameraPivot
-@onready var arm: SpringArm3D = $CameraPivot/SpringArm3D
 @onready var bubble: Node3D = $Bubble
 @onready var inventar: Control = get_node("../Inventar")
 @onready var kolobok: Node3D = get_node("../Kolobok")
@@ -48,12 +46,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		pivot.rotation.y -= event.relative.x * mouse_sensitivity
 		pivot.rotation.x = clampf(pivot.rotation.x - event.relative.y * mouse_sensitivity, pitch_min, pitch_max)
 	elif event is InputEventMouseButton and event.pressed:
-		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-			arm.spring_length = maxf(arm.spring_length - 0.2, zoom_min)
-		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-			arm.spring_length = minf(arm.spring_length + 0.2, zoom_max)
-		else:
-			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED # nach Fensterwechsel per Klick wieder einfangen
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED # nach Fensterwechsel per Klick wieder einfangen
 	elif event is InputEventKey and event.pressed and not event.echo and not dying:
 		match event.physical_keycode:
 			KEY_1: # Krone: in den Frosch verwandeln
@@ -129,16 +122,17 @@ func become_frog() -> void:
 func become_domowoi() -> void:
 	form = "domowoi"
 	anim = null
-	_swap_model(DOMOWOI_SCENE, DOMOWOI_SCALE)
+	_swap_model(DOMOWOI_SCENE, DOMOWOI_SCALE, DOMOWOI_LIFT)
 	if Karte.is_water(position):
 		sink()
 
 
 # Neues Modell an Stelle des alten, Blickrichtung bleibt.
-func _swap_model(scene: PackedScene, model_scale: float) -> void:
+func _swap_model(scene: PackedScene, model_scale: float, lift := 0.0) -> void:
 	var facing := model.rotation.y
 	model.queue_free()
 	model = scene.instantiate()
 	model.scale = Vector3.ONE * model_scale
+	model.position.y = lift
 	model.rotation.y = facing
 	add_child(model)
