@@ -4,3 +4,6 @@
 
 # macOS
 .DS_Store
+
+# Quelldateien (nicht im Spiel benutzt, teils zu groß für GitHub)
+/Quelldateien/

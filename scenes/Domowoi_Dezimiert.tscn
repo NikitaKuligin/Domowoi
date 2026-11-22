@@ -5,10 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://ce4mhy825u23p" path="res://textures/terrain/Weg_Textur.png" id="4_7d24f"]
 [ext_resource type="Texture2D" uid="uid://cylsstld1hmw7" path="res://textures/terrain/Wiese_Textur.png" id="5_h4ekb"]
 [ext_resource type="Texture2D" uid="uid://dql8xtu8cn1uo" path="res://textures/terrain/Moos_Textur.png" id="6_vnro2"]
-[ext_resource type="PackedScene" uid="uid://cj3fqx8nbqjgo" path="res://models/environment/Gewässer_Ebene.glb" id="7_1filk"]
+[ext_resource type="PackedScene" uid="uid://cj3fqx8nbqjgo" path="res://models/environment/Gewaesser_Ebene/Gewaesser_Ebene.glb" id="7_1filk"]
 [ext_resource type="Texture2D" uid="uid://b508f3oek07u3" path="res://textures/swamp/Seerosen Blatt Gro.png" id="10_7y70l"]
 [ext_resource type="Texture2D" uid="uid://bo0eh1vqjgusd" path="res://textures/swamp/Schilf_Textur.png" id="11_65f4w"]
-[ext_resource type="PackedScene" uid="uid://c3txeua6yt12h" path="res://models/environment/Sumpf Stegi.glb" id="13_bg8ag"]
+[ext_resource type="PackedScene" uid="uid://c3txeua6yt12h" path="res://models/environment/Sumpf Stegi/Sumpf Stegi.glb" id="13_bg8ag"]
 [ext_resource type="Texture2D" uid="uid://bdfa4chs16cn6" path="res://textures/swamp/Steg_9_Textur.png" id="14_v4aew"]
 [ext_resource type="Texture2D" uid="uid://bb2dew67hnank" path="res://textures/swamp/Steg_7_Textur.png" id="15_sj5is"]
 [ext_resource type="Texture2D" uid="uid://blaxr10ddohth" path="res://textures/swamp/Steg_6_Textur.png" id="16_wr0s8"]
@@ -16,7 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://c7shl7esxj3e7" path="res://textures/swamp/Steg_4_Textue.png" id="18_lbsjv"]
 [ext_resource type="Texture2D" uid="uid://bqj1jpb1mtdch" path="res://textures/swamp/Steg_3_Textur.png" id="19_1tl6y"]
 [ext_resource type="Texture2D" uid="uid://dpkh2h00s56tu" path="res://textures/swamp/Steg_1_Textur.png" id="20_vcqbh"]
-[ext_resource type="ArrayMesh" path="res://models/environment/Gelaende.res" id="21_gelaende"]
+[ext_resource type="ArrayMesh" path="res://models/environment/Gelaende/Gelaende.res" id="21_gelaende"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cqsk4"]
 render_priority = 0

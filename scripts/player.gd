@@ -21,10 +21,10 @@ var form := "domowoi"
 var dying := false
 var anim: AnimationPlayer # nur beim Frosch, Domowoi hat keine Animationen
 
-const DOMOWOI_SCENE := preload("res://models/characters/Domowoi 3.glb")
+const DOMOWOI_SCENE := preload("res://models/characters/Domowoi/Domowoi.glb")
 const DOMOWOI_SCALE := 0.128
 const DOMOWOI_LIFT := 0.18 # Ursprung des Modells liegt in der Körpermitte, so stehen die Füße auf dem Boden
-const FROG_SCENE := preload("res://models/characters/Frog Pet.glb")
+const FROG_SCENE := preload("res://models/characters/Frog Pet/Frog Pet.glb")
 const FROG_SCALE := 0.15
 
 @onready var model: Node3D = $Model
