@@ -1,5 +1,5 @@
 extends Node3D
-# Krone: dreht sich langsam. Steht der Spieler davor und drückt E, kommt sie ins Inventarfeld 1.
+# Krone: dreht sich langsam. Steht der Spieler davor und drückt E (oder klickt), kommt sie ins Inventarfeld 1.
 
 @export var pickup_radius := 0.5
 @export var icon: Texture2D = preload("res://textures/ui/Icon_Krone.png")
@@ -13,7 +13,7 @@ func _process(delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_E and _player_near():
+	if player.wants_interact(event) and _player_near():
 		inventar.add(0, icon)
 		get_viewport().set_input_as_handled()
 		queue_free()

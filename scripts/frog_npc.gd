@@ -1,6 +1,6 @@
 extends Node3D
 # Frosch hüpft am Flussufer zwischen den Wegpunkten hin und her.
-# Kommt Domowoi nah heran, bleibt er stehen und schaut ihn an. Mit E beginnt ein Dialog:
+# Kommt Domowoi nah heran, bleibt er stehen und schaut ihn an. Mit E oder Mausklick beginnt ein Dialog:
 # "Ja" = der Frosch verschwindet und an seiner Stelle liegt eine Krone, "Nein" = er hüpft weiter.
 
 @export var waypoints: Array[Vector3] = [Vector3(-8.47, -0.017, 4.50), Vector3(-8.25, -0.011, 5.03), Vector3(-8.09, -0.010, 5.70), Vector3(-7.59, 0.001, 6.14), Vector3(-7.31, 0.001, 6.70), Vector3(-7.05, -0.002, 6.94)]
@@ -44,7 +44,7 @@ func _process(delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if _player_near() and event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_E:
+	if player.wants_interact(event) and _player_near():
 		dialog.open("Frosch", ["Ja", "Nein"], _on_answer, "Kannst du mir helfen?")
 		get_viewport().set_input_as_handled()
 

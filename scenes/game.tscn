@@ -14,7 +14,6 @@
 [ext_resource type="Script" uid="uid://baufqaii8yd08" path="res://scripts/frog_npc.gd" id="10_frog"]
 [ext_resource type="PackedScene" path="res://scenes/erdbeerbusch.tscn" id="11_erdbeeren"]
 [ext_resource type="Script" uid="uid://n2r0j1o682ec" path="res://scripts/inventar.gd" id="12_inventar"]
-[ext_resource type="PackedScene" uid="uid://di84mhhjs6e4s" path="res://models/characters/Froschprinzessin.glb" id="13_froschprinzessin"]
 [ext_resource type="Script" uid="uid://3fxgatufwt5d" path="res://scripts/wetter.gd" id="13_wetter"]
 [ext_resource type="PackedScene" uid="uid://tmdy1gfnr5kr" path="res://models/environment/Stumpf.glb" id="17_rysoc"]
 [ext_resource type="PackedScene" uid="uid://c7hum8mm5ovao" path="res://models/environment/Wegweiser.glb" id="18_ssvqc"]
@@ -22,6 +21,8 @@
 [ext_resource type="PackedScene" uid="uid://ndf7b1yrfcyv" path="res://models/environment/Pilz klein weiss.glb" id="20_5newe"]
 [ext_resource type="PackedScene" uid="uid://cgm51mdwscn1q" path="res://models/environment/Baumstumpf.glb" id="21_37s47"]
 [ext_resource type="PackedScene" uid="uid://6ellx6qujqkg" path="res://models/characters/Kikimora.glb" id="22_kikimora"]
+[ext_resource type="Script" path="res://scripts/kikimora.gd" id="23_kikimora"]
+[ext_resource type="Script" path="res://scripts/wunderblume.gd" id="24_wunderblume"]
 
 [sub_resource type="ProceduralSkyMaterial" id="SkyMat"]
 
@@ -175,21 +176,17 @@ script = ExtResource("10_frog")
 [node name="Model" parent="Frog" unique_id=1380538014 instance=ExtResource("9_frog")]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
 
-[node name="Froschprinzessin" type="Node3D" parent="." unique_id=1801753007]
-transform = Transform3D(-0.8792689, 0, -0.47632608, 0, 1, 0, 0.47632608, 0, -0.8792689, -7.75, -0.006, 5.66)
-
-[node name="Model" parent="Froschprinzessin" unique_id=1976399152 instance=ExtResource("13_froschprinzessin")]
-transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0.138, 0)
-
 [node name="Wunderblume" parent="." unique_id=1818172349 instance=ExtResource("5_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6741357, 0.495, -5.212665)
+script = ExtResource("24_wunderblume")
 
 [node name="UV-Kugel" parent="Wunderblume" index="1" unique_id=760380250]
 material_override = SubResource("ShaderMaterial_vtaks")
 surface_material_override/0 = SubResource("ShaderMaterial_vtaks")
 
 [node name="Kikimora" type="Node3D" parent="." unique_id=1458207733]
-transform = Transform3D(0.7071068, 0, 0.7071068, 0, 1, 0, -0.7071068, 0, 0.7071068, -3.15, 0.0412, -5.25)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -4.4, -0.0229, -5.2)
+script = ExtResource("23_kikimora")
 
 [node name="Model" parent="Kikimora" unique_id=1458207734 instance=ExtResource("22_kikimora")]
 transform = Transform3D(0.0731, 0, 0, 0, 0.0731, 0, 0, 0, 0.0731, 0, 0.367, 0)

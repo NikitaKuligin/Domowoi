@@ -1,6 +1,6 @@
 extends Control
 # Dialogfenster mit Antwortmöglichkeiten. Während es offen ist, steht das Spiel still.
-# W/S wählt eine Antwort, E bestätigt, Esc schließt das Fenster.
+# W/S wählt eine Antwort, E bestätigt (die Maus nicht), Esc schließt das Fenster.
 
 var selected := 0
 var on_answer: Callable # bekommt den Index der gewählten Antwort
@@ -43,13 +43,18 @@ func _input(event: InputEvent) -> void:
 			selected = (selected + 1) % count
 			_highlight()
 		KEY_E:
-			close()
-			on_answer.call(selected)
+			_choose()
 		KEY_ESCAPE:
 			close()
 		_:
 			return
 	get_viewport().set_input_as_handled() # damit Esc nicht zusätzlich das Pausenmenü öffnet
+
+
+# Fenster schließen, dann die Antwort melden (die Figur darf daraufhin gleich ein neues Fenster öffnen).
+func _choose() -> void:
+	close()
+	on_answer.call(selected)
 
 
 func _highlight() -> void:

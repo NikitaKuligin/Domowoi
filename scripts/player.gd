@@ -3,6 +3,8 @@ extends Node3D
 # W läuft in Blickrichtung der Kamera, das Modell dreht sich weich in Laufrichtung.
 # Betritt Domowoi das Sumpfwasser, sinkt er langsam ein und das Spiel beginnt im Hauptmenü neu.
 # Mit der Krone (Taste 1) wird der Spieler zum Frosch: er hüpft (Animation) und kann auch übers Wasser. Ohne Kollision.
+# In jeder anderen Gestalt macht E ihn wieder zu Domowoi (nur die Taste, nicht die Maus).
+# Taste 3 setzt Kolobok aus dem Inventar an der aktuellen Stelle ab.
 # Die Höhe kommt aus der Höhenkarte (Karte.surface): Boden, Steg oder Wasseroberfläche.
 
 @export var speed := 1.0
@@ -21,6 +23,8 @@ var form := "domowoi"
 var dying := false
 var anim: AnimationPlayer # nur beim Frosch, Domowoi hat keine Animationen
 
+const DOMOWOI_SCENE := preload("res://models/characters/Domowoi.glb")
+const DOMOWOI_SCALE := 0.1
 const FROG_SCENE := preload("res://models/characters/Frog Pet.glb")
 const FROG_SCALE := 0.15
 
@@ -29,6 +33,7 @@ const FROG_SCALE := 0.15
 @onready var arm: SpringArm3D = $CameraPivot/SpringArm3D
 @onready var bubble: Node3D = $Bubble
 @onready var inventar: Control = get_node("../Inventar")
+@onready var kolobok: Node3D = get_node("../Kolobok")
 
 
 func _ready() -> void:
@@ -53,9 +58,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		match event.physical_keycode:
 			KEY_1: # Krone: in den Frosch verwandeln
 				if form == "domowoi" and inventar.has(0):
-					become_frog(model.rotation.y)
+					become_frog()
 			KEY_2: # Erdbeere essen
 				inventar.take(1)
+			KEY_3: # Kolobok hier absetzen
+				if inventar.take(2):
+					kolobok.place(global_position)
+			KEY_E: # zurück zu Domowoi (in Domowoi-Gestalt ist E zum Reden/Aufheben da)
+				if form != "domowoi":
+					become_domowoi()
 
 
 func _process(delta: float) -> void:
@@ -80,6 +91,16 @@ func _process(delta: float) -> void:
 		sink()
 
 
+# Für Figuren und Gegenstände: Will der Spieler gerade mit etwas in der Nähe interagieren?
+# Linke Maustaste geht immer, E nur als Domowoi (sonst verwandelt E zurück).
+func wants_interact(event: InputEvent) -> bool:
+	if dying:
+		return false
+	if event is InputEventMouseButton:
+		return event.pressed and event.button_index == MOUSE_BUTTON_LEFT
+	return form == "domowoi" and event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_E
+
+
 func sink() -> void:
 	dying = true
 	# Nur das Modell sinkt, die Kamera bleibt oben und schaut zu.
@@ -88,14 +109,36 @@ func sink() -> void:
 	tween.tween_callback(func(): get_tree().change_scene_to_file("res://scenes/main_menu.tscn"))
 
 
-# Der Spieler wird an Ort und Stelle zum Frosch und schaut in Richtung "facing".
-func become_frog(facing: float) -> void:
+# Kikimora hat den Spieler erwischt: Spiel vorbei, zurück ins Hauptmenü.
+func caught() -> void:
+	dying = true
+	await get_tree().create_timer(1.0).timeout
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+
+
+# Der Spieler wird an Ort und Stelle zum Frosch.
+func become_frog() -> void:
 	form = "frosch"
-	model.queue_free()
-	model = FROG_SCENE.instantiate()
-	model.scale = Vector3.ONE * FROG_SCALE
-	model.rotation.y = facing
-	add_child(model)
+	_swap_model(FROG_SCENE, FROG_SCALE)
 	anim = model.find_children("*", "AnimationPlayer", true, false)[0]
 	for a in ["run", "stand"]:
 		anim.get_animation(a).loop_mode = Animation.LOOP_LINEAR
+
+
+# Zurück zu Domowoi. Steht er dabei im Sumpfwasser, versinkt er.
+func become_domowoi() -> void:
+	form = "domowoi"
+	anim = null
+	_swap_model(DOMOWOI_SCENE, DOMOWOI_SCALE)
+	if Karte.is_water(position):
+		sink()
+
+
+# Neues Modell an Stelle des alten, Blickrichtung bleibt.
+func _swap_model(scene: PackedScene, model_scale: float) -> void:
+	var facing := model.rotation.y
+	model.queue_free()
+	model = scene.instantiate()
+	model.scale = Vector3.ONE * model_scale
+	model.rotation.y = facing
+	add_child(model)

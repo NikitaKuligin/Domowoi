@@ -1,6 +1,6 @@
 extends Control
 # Inventarleiste unten am Bildschirm: 9 Felder, am Anfang leer.
-# Feld 1 (Index 0) = Krone, Feld 2 (Index 1) = Erdbeeren. Was die Tasten 1-9 tun, steht in player.gd.
+# Feld 1 (Index 0) = Krone, Feld 2 = Erdbeeren, Feld 3 = Kolobok, Feld 4 = Wunderblume. Was die Tasten 1-9 tun, steht in player.gd.
 
 const SLOTS := 9
 const SLOT_SIZE := 64
