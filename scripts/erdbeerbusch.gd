@@ -1,7 +1,7 @@
 extends Node3D
 # Erdbeerbusch: Beim Spielstart wird er auf die Bodenhöhe gesetzt.
 # Im Editor muss man ihn also nur waagerecht (x/z) verschieben.
-# Steht der Spieler davor und drückt E (oder klickt), verschwindet der Busch und eine Erdbeere kommt ins Inventarfeld 2.
+# Steht der Spieler davor und drückt E, verschwindet der Busch und eine Erdbeere kommt ins Inventarfeld 2.
 
 @export var pickup_radius := 0.5
 @export var icon: Texture2D = preload("res://textures/ui/Icon_Erdbeere.png")

@@ -78,6 +78,7 @@ transform = Transform3D(1.0018533, 0, 0, 0, 0.9999998, 0, 0, 0, 0.98472327, -0.0
 
 [node name="Plane 2" type="MeshInstance3D" parent="Map_Dezimiert" unique_id=516511349]
 transform = Transform3D(2.4889438, 0, 0, 0, 2.4889433, 0, 0, 0, 2.4889438, 0, -0.0054931645, 0)
+cast_shadow = 0
 mesh = ExtResource("21_gelaende")
 surface_material_override/0 = SubResource("ShaderMaterial_cqsk4")
 
@@ -86,6 +87,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0147948265, 0, 0.022192275
 
 [node name="Ebene" parent="Gewässer_Ebene" index="0" unique_id=1997725378]
 transform = Transform3D(4.953918, 0, 0, 0, 4.9539175, 0, 0, 0, 4.953918, -0.05970505, -0.011526119, -0.06088829)
+cast_shadow = 0
 material_override = ExtResource("2_267cf")
 mesh = SubResource("ArrayMesh_tfq55")
 

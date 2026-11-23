@@ -3,7 +3,7 @@ extends Node3D
 # W läuft in Blickrichtung der Kamera, das Modell dreht sich weich in Laufrichtung.
 # Betritt Domowoi das Sumpfwasser, sinkt er langsam ein und das Spiel beginnt im Hauptmenü neu.
 # Mit der Krone (Taste 1) wird der Spieler zum Frosch: er hüpft (Animation) und kann auch übers Wasser. Ohne Kollision.
-# In jeder anderen Gestalt macht E ihn wieder zu Domowoi (nur die Taste, nicht die Maus).
+# In jeder anderen Gestalt macht E ihn wieder zu Domowoi.
 # Taste 3 setzt Kolobok aus dem Inventar an der aktuellen Stelle ab.
 # Die Höhe kommt aus der Höhenkarte (Karte.surface): Boden, Steg oder Wasseroberfläche.
 
@@ -85,12 +85,10 @@ func _process(delta: float) -> void:
 
 
 # Für Figuren und Gegenstände: Will der Spieler gerade mit etwas in der Nähe interagieren?
-# Linke Maustaste geht immer, E nur als Domowoi (sonst verwandelt E zurück).
+# Nur mit E und nur als Domowoi (in anderer Gestalt verwandelt E zurück).
 func wants_interact(event: InputEvent) -> bool:
 	if dying:
 		return false
-	if event is InputEventMouseButton:
-		return event.pressed and event.button_index == MOUSE_BUTTON_LEFT
 	return form == "domowoi" and event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_E
 
 

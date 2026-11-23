@@ -1,6 +1,6 @@
 extends Node3D
 # Frosch hüpft am Flussufer zwischen den Wegpunkten hin und her.
-# Kommt Domowoi nah heran, bleibt er stehen und schaut ihn an. Mit E oder Mausklick beginnt ein Dialog:
+# Kommt Domowoi nah heran, bleibt er stehen und schaut ihn an. Mit E beginnt ein Dialog:
 # "Ja" = der Frosch verschwindet und an seiner Stelle liegt eine Krone, "Nein" = er hüpft weiter.
 
 @export var waypoints: Array[Vector3] = [Vector3(-8.47, -0.017, 4.50), Vector3(-8.25, -0.011, 5.03), Vector3(-8.09, -0.010, 5.70), Vector3(-7.59, 0.001, 6.14), Vector3(-7.31, 0.001, 6.70), Vector3(-7.05, -0.002, 6.94)]

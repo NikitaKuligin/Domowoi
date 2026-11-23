@@ -1,5 +1,5 @@
 extends Node3D
-# Wunderblume auf der Insel im Sumpf. Nur Domowoi kann sie pflücken (E oder Mausklick):
+# Wunderblume auf der Insel im Sumpf. Nur Domowoi kann sie pflücken (mit E):
 # sie kommt ins Inventarfeld 4 und Kikimora wacht auf.
 
 @export var pickup_radius := 0.5

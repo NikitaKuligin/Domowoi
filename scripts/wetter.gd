@@ -30,7 +30,10 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	gloom = move_toward(gloom, _swamp_amount(), blend_speed * delta)
+	var target := move_toward(gloom, _swamp_amount(), blend_speed * delta)
+	if target == gloom:
+		return # nichts geändert: Himmel nicht neu setzen, sonst berechnet Godot jedes Bild das Himmelslicht neu
+	gloom = target
 	_apply()
 
 

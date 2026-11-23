@@ -1,10 +1,12 @@
 extends Node3D
 # Kolobok steht da und summt (Sprechblase mit Noten). Kommt der Spieler nah heran, dreht er sich zu ihm
-# und ruft ihn. Mit E oder Mausklick beginnt der Dialog:
+# und ruft ihn. Mit E beginnt der Dialog:
 #   "Hallo! Wie geht's?" -> "Ich komme später wieder." = Kolobok ist danach verschwunden
 #                        -> "Mir geht's gut. Und dir?" = er hat Angst und will mit
 #   "Nimm mich mit!"     -> "Komm mit!" = Kolobok kommt ins Inventarfeld 3
 #                        -> "Ich komme später wieder." = Kolobok ist danach verschwunden
+# Verschwinden heißt: Bricht der Spieler ab (Antwort "später" oder Esc) und geht ein Stück weg,
+# kommt der Fuchs aus den Büschen und frisst Kolobok (siehe fuchs.gd).
 # Mit Taste 3 setzt der Spieler ihn irgendwo ab (place). Erreicht ihn dort Kikimora (scare),
 # rennt er zurück an seinen Anfangsplatz.
 
@@ -22,6 +24,7 @@ var notes: Sprite3D
 @onready var player: Node3D = get_node("../Player")
 @onready var dialog: Control = get_node("../Dialog")
 @onready var inventar: Control = get_node("../Inventar")
+@onready var fuchs: Node3D = get_node("../Fuchs")
 @onready var bubble: Node3D = $Bubble
 @onready var bubble_label: Label3D = $Bubble/Label
 
@@ -40,8 +43,8 @@ func _process(delta: float) -> void:
 	var to := player.global_position - global_position
 	var near: bool = Vector2(to.x, to.z).length() < talk_radius and not player.dying
 	if state == "leaving" and not near:
-		state = "gone"
-		hide()
+		state = "eaten" # der Fuchs holt ihn
+		fuchs.hunt(self)
 	if state == "fleeing":
 		_run_home(delta)
 	bubble.visible = state == "home" and near
@@ -54,7 +57,7 @@ func _process(delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if bubble.visible and player.wants_interact(event):
-		dialog.open("Kolobok", ["Ich komme später wieder.", "Mir geht's gut. Und dir?"], _on_greeting, "Hallo! Wie geht's?")
+		dialog.open("Kolobok", ["Ich komme später wieder.", "Mir geht's gut. Und dir?"], _on_greeting, "Hallo! Wie geht's?", _on_cancel)
 		get_viewport().set_input_as_handled()
 
 
@@ -63,7 +66,7 @@ func _on_greeting(index: int) -> void:
 		state = "leaving"
 	else:
 		dialog.open("Kolobok", ["Komm mit!", "Ich komme später wieder."], _on_offer,
-			"Ich habe Angst, hier allein zu bleiben. Nimm mich mit, vielleicht kann ich dir helfen!")
+			"Ich habe Angst, hier allein zu bleiben. Nimm mich mit, vielleicht kann ich dir helfen!", _on_cancel)
 
 
 func _on_offer(index: int) -> void:
@@ -73,6 +76,16 @@ func _on_offer(index: int) -> void:
 		inventar.add(2, icon)
 	else:
 		state = "leaving"
+
+
+# Dialog mit Esc abgebrochen: wie "Ich komme später wieder."
+func _on_cancel() -> void:
+	state = "leaving"
+
+
+# Der Fuchs hat ihn erreicht.
+func eaten() -> void:
+	hide()
 
 
 # Vom Spieler an Stelle p abgesetzt.

@@ -1,5 +1,5 @@
 extends Node3D
-# Krone: dreht sich langsam. Steht der Spieler davor und drückt E (oder klickt), kommt sie ins Inventarfeld 1.
+# Krone: dreht sich langsam. Steht der Spieler davor und drückt E, kommt sie ins Inventarfeld 1.
 
 @export var pickup_radius := 0.5
 @export var icon: Texture2D = preload("res://textures/ui/Icon_Krone.png")

@@ -1,9 +1,10 @@
 extends Control
 # Dialogfenster mit Antwortmöglichkeiten. Während es offen ist, steht das Spiel still.
-# W/S wählt eine Antwort, E bestätigt (die Maus nicht), Esc schließt das Fenster.
+# W/S wählt eine Antwort, Enter bestätigt, Esc schließt das Fenster.
 
 var selected := 0
 var on_answer: Callable # bekommt den Index der gewählten Antwort
+var on_cancel: Callable # wird gerufen, wenn der Spieler mit Esc abbricht (darf leer sein)
 
 @onready var name_label: Label = $Panel/VBox/Name
 @onready var text_label: Label = $Panel/VBox/Text
@@ -11,7 +12,7 @@ var on_answer: Callable # bekommt den Index der gewählten Antwort
 
 
 # line = was die Figur sagt (darf leer sein), texts = Antworten des Spielers.
-func open(speaker: String, texts: Array, callback: Callable, line := "") -> void:
+func open(speaker: String, texts: Array, callback: Callable, line := "", cancel := Callable()) -> void:
 	name_label.text = speaker
 	text_label.text = line
 	text_label.visible = line != ""
@@ -20,6 +21,7 @@ func open(speaker: String, texts: Array, callback: Callable, line := "") -> void
 		if i < texts.size():
 			options[i].get_node("Label").text = texts[i]
 	on_answer = callback
+	on_cancel = cancel
 	selected = 0
 	_highlight()
 	visible = true
@@ -42,10 +44,12 @@ func _input(event: InputEvent) -> void:
 		KEY_S:
 			selected = (selected + 1) % count
 			_highlight()
-		KEY_E:
+		KEY_ENTER, KEY_KP_ENTER:
 			_choose()
 		KEY_ESCAPE:
 			close()
+			if on_cancel.is_valid():
+				on_cancel.call()
 		_:
 			return
 	get_viewport().set_input_as_handled() # damit Esc nicht zusätzlich das Pausenmenü öffnet
