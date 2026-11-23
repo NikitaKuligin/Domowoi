@@ -2,6 +2,8 @@ extends Node3D
 # Domowoi läuft mit WASD über die Karte, die Maus dreht die Kamera um ihn herum (Third-Person).
 # W läuft in Blickrichtung der Kamera, das Modell dreht sich weich in Laufrichtung.
 # Betritt Domowoi das Sumpfwasser, sinkt er langsam ein und das Spiel beginnt im Hauptmenü neu.
+# Erwischt ihn Kikimora, wird er am Eingang zum Sumpf wiedergeboren: Kolobok und die Krone hat er dann schon
+# (als wäre er beim Kolobok und beim Frosch gewesen), Wunderblume und Kikimora sind wie am Anfang.
 # Mit der Krone (Taste 1) wird der Spieler zum Frosch: er hüpft (Animation) und kann auch übers Wasser. Ohne Kollision.
 # In jeder anderen Gestalt macht E ihn wieder zu Domowoi.
 # Taste 3 setzt Kolobok aus dem Inventar an der aktuellen Stelle ab.
@@ -15,6 +17,8 @@ extends Node3D
 @export var map_half_size := 11.6 # Karte ist ca. 24x24, weiter geht es nicht
 @export var sink_time := 3.0 # Sekunden bis Domowoi ganz im Sumpf verschwunden ist
 @export var sink_depth := 0.35 # so tief sinkt das Modell ein
+@export var respawn_point := Vector3(-1.5, 0, 1.25) # Eingang zum Sumpf (Weg vom Kolobok her)
+@export var respawn_look := Vector3(-2.2, 0, -0.5) # dorthin schaut er nach dem Wiedergeboren-Werden
 
 # Aktuelle Gestalt des Spielers: "domowoi" oder "frosch". Nur Domowoi ertrinkt im Sumpf.
 var form := "domowoi"
@@ -37,6 +41,8 @@ const FROG_SCALE := 0.15
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED # Maus verstecken und festhalten
 	position.y = Karte.surface(position)
+	if get_tree().get_meta("wiedergeboren", false):
+		_respawn.call_deferred() # erst wenn Inventar, Kolobok usw. fertig sind
 	await get_tree().create_timer(3.0).timeout # Sprechblase "Ich bin so hungrig!" nach 3 Sekunden ausblenden
 	bubble.hide()
 
@@ -100,11 +106,25 @@ func sink() -> void:
 	tween.tween_callback(func(): get_tree().change_scene_to_file("res://scenes/main_menu.tscn"))
 
 
-# Kikimora hat den Spieler erwischt: Spiel vorbei, zurück ins Hauptmenü.
+# Kikimora hat den Spieler erwischt: Spiel neu laden und am Eingang zum Sumpf weitermachen.
 func caught() -> void:
 	dying = true
 	await get_tree().create_timer(1.0).timeout
-	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+	get_tree().set_meta("wiedergeboren", true) # die Szene wird neu geladen, der SceneTree bleibt
+	get_tree().reload_current_scene()
+
+
+# Am Eingang zum Sumpf, mit Kolobok und Krone im Inventar. Der Frosch ist schon weg.
+func _respawn() -> void:
+	position = Vector3(respawn_point.x, Karte.surface(respawn_point), respawn_point.z)
+	var dir := respawn_look - respawn_point
+	model.rotation.y = atan2(dir.x, dir.z)
+	pivot.rotation.y = atan2(-dir.x, -dir.z) # Kamera schaut in dieselbe Richtung
+	inventar.add(0, preload("res://textures/ui/Icon_Krone.png"))
+	inventar.add(2, kolobok.icon)
+	kolobok.state = "carried"
+	kolobok.hide()
+	get_node("../Frog").queue_free()
 
 
 # Der Spieler wird an Ort und Stelle zum Frosch.
