@@ -114,7 +114,7 @@ script = ExtResource("13_wetter")
 [node name="Sun" type="DirectionalLight3D" parent="." unique_id=670117994]
 transform = Transform3D(0.87758255, -0.37554693, 0.2980157, 0, 0.62161, 0.7833269, -0.47942555, -0.687434, 0.54551405, 0, 0, 0)
 shadow_enabled = true
-directional_shadow_mode = 1
+directional_shadow_mode = 0
 directional_shadow_max_distance = 8.0
 
 [node name="Map" parent="." unique_id=1973408425 instance=ExtResource("1_map")]

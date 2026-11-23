@@ -9,6 +9,7 @@ extends Node3D
 # kommt der Fuchs aus den Büschen und frisst Kolobok (siehe fuchs.gd).
 # Mit Taste 3 setzt der Spieler ihn irgendwo ab (place). Erreicht ihn dort Kikimora (scare),
 # rennt er zurück an seinen Anfangsplatz.
+# Abgesetzt kann man auch mit ihm reden: "Gehen wir weiter!" = er kommt wieder ins Inventarfeld 3.
 
 @export var talk_radius := 0.6 # ab dieser Entfernung (Meter) ruft er den Spieler
 @export var turn_speed := 5.0
@@ -47,7 +48,7 @@ func _process(delta: float) -> void:
 		fuchs.hunt(self)
 	if state == "fleeing":
 		_run_home(delta)
-	bubble.visible = state == "home" and near
+	bubble.visible = state in ["home", "placed"] and near
 	notes.visible = state in ["home", "placed"] and not bubble.visible
 	notes.position.y = bubble.position.y + sin(Time.get_ticks_msec() * 0.004) * 0.015 # leicht wippen
 	if bubble.visible:
@@ -56,9 +57,13 @@ func _process(delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if bubble.visible and player.wants_interact(event):
+	if not (bubble.visible and player.wants_interact(event)):
+		return
+	get_viewport().set_input_as_handled()
+	if state == "placed":
+		dialog.open("Kolobok", ["Gehen wir weiter!", "Warte hier auf mich."], _on_placed, "Und jetzt?")
+	else:
 		dialog.open("Kolobok", ["Ich komme später wieder.", "Mir geht's gut. Und dir?"], _on_greeting, "Hallo! Wie geht's?", _on_cancel)
-		get_viewport().set_input_as_handled()
 
 
 func _on_greeting(index: int) -> void:
@@ -76,6 +81,14 @@ func _on_offer(index: int) -> void:
 		inventar.add(2, icon)
 	else:
 		state = "leaving"
+
+
+# Abgesetzt angesprochen: wieder mitnehmen oder stehen lassen.
+func _on_placed(index: int) -> void:
+	if index == 0:
+		state = "carried"
+		hide()
+		inventar.add(2, icon)
 
 
 # Dialog mit Esc abgebrochen: wie "Ich komme später wieder."
